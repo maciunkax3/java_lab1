@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<f:metadata>
+    <f:viewParam name="towerId" value="#{editMag.towerId}" />
+    <f:viewParam name="magId" value="#{editMag.magId}" />
+    <f:event type="preRenderView" listener="#{editMag.init()}"/>
+</f:metadata>
+<h:head>
+    <title>#{editMag.tower}</title>
+</h:head>
+<h:body>
+
+    <h:form>
+
+        <h:panelGrid columns="3" styleClass="tabela">
+            <h:outputLabel value="Imie:" for="name"/>
+            <h:inputText id="name"
+                         value="#{editMag.mag.name}"/>
+            <h:message for="name"/>
+
+            <h:outputLabel value="Mana:" for="mana"/>
+            <h:inputText id="mana" value="#{editMag.mag.mana}" />
+            <h:message for="mana"/>
+
+            <h:outputLabel value="Zywiol:" for="env"/>
+            <h:inputText id="env" value="#{editMag.mag.env}" />
+            <h:message for="env"/>
+
+            <h:outputLabel value="Wierze:" for="towers"/>
+            <h:selectOneListbox id="towers" value="#{editMag.tower}" converter="#{towerConverter}">
+                <f:selectItems value="#{editMag.towersAsSelectItems}"/>
+            </h:selectOneListbox>
+            <h:message for="towers"/>
+        </h:panelGrid>
+
+        <h:commandButton value="Zapisz" action="#{editMag.saveMag()}" outcome="lista_wierz.xhtml"/>
+
+    </h:form>
+    <h:button value="Powrót" outcome="lista_wierz.xhtml"/>
+</h:body>
+</html>

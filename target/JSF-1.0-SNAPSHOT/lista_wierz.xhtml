@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Wierze</title>
+</h:head>
+<h:body>
+    <h:dataTable value="#{listTowers.tower}" var="wierza">
+        <h:column>
+            <f:facet name = "header">Id Wierzy</f:facet>
+            <h:outputText value="#{wierza.id}" />
+        </h:column>
+        <h:column>
+            <f:facet name = "header">Wysokosc</f:facet>
+            <h:outputText value="#{wierza.height}" />
+        </h:column>
+        <h:column>
+            <f:facet name = "header">Magowie</f:facet>
+            <h:dataTable value="#{wierza.mags}" var="mag">
+                <h:column>
+                    <f:facet name = "header">Imie</f:facet>
+                    <h:outputText value="#{mag.name}" />
+                </h:column>
+                <h:column>
+                    <f:facet name = "header">mana</f:facet>
+                    <h:outputText value="#{mag.mana}" />
+                </h:column>
+                <h:column>
+                    <f:facet name = "header">Zywiol</f:facet>
+                    <h:outputText value="#{mag.env}" />
+                </h:column>
+                <h:column>
+                    <h:form>
+                        <h:commandButton value="Usuń Maga"
+                                         action="#{wierza.removeMag(mag)}"/>
+                        <h:button value="Edytuj" outcome="edit_mag.xhtml">
+                            <f:param name="towerId" value="#{wierza.id}" />
+                            <f:param name="magId" value="#{mag.id}" />
+                        </h:button>
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+        </h:column>
+        <h:column>
+            <h:form>
+            <h:commandButton value="Usuń Wierze"
+                             action="#{listTowers.removeTower(wierza)}"/>
+                <h:button value="Edytuj" outcome="edit_tower.xhtml">
+                    <f:param name="towerId" value="#{wierza.id}" />
+                </h:button>
+        </h:form>
+        </h:column>
+    </h:dataTable>
+    <h:button value="Nowa Wierza" outcome="edit_tower.xhtml"/>
+    <h:button value="Nowy Mag" outcome="edit_mag.xhtml"/>
+</h:body>
+</html>
